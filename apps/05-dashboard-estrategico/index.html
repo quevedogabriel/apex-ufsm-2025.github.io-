@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Análise Estratégica China-EUA 2025 | Modelo Realista</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ===== RESET E BASE MODERNO ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0b 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Background com partículas animadas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(10, 132, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 45, 111, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(46, 204, 113, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ===== VARIÁVEIS CSS ===== */
+        :root {
+            /* Cores principais */
+            --primary-blue: #0a84ff;
+            --primary-red: #ff2d6f;
+            --primary-green: #2ecc71;
+            --accent-purple: #9c27b0;
+            --accent-orange: #ff9500;
+            
+            /* Tons neutros */
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-300: #d4d4d4;
+            --neutral-400: #a3a3a3;
+            --neutral-500: #737373;
+            --neutral-600: #525252;
+            --neutral-700: #404040;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
+            
+            /* Cores de texto */
+            --text-primary: #ffffff;
+            --text-secondary: #e5e7eb;
+            --text-tertiary: #9ca3af;
+            --text-muted: #6b7280;
+            
+            /* Cores de fundo */
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-glass-hover: rgba(255, 255, 255, 0.08);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Estados */
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            
+            /* Tipografia */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            /* Fontes */
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* Espaçamento */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            
+            /* Bordas */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Bordas de vidro */
+            --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+            --border-glass-strong: 1px solid rgba(255, 255, 255, 0.2);
+            
+            /* Transições */
+            --transition-fast: 0.15s ease-in-out;
+            --transition-normal: 0.3s ease-in-out;
+            --transition-slow: 0.5s ease-in-out;
+        }
+
+        /* ===== LAYOUT PRINCIPAL ===== */
+        .app {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ===== NAVEGAÇÃO LATERAL ===== */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: var(--border-glass);
+            z-index: 1000;
+            transition: transform var(--transition-normal);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neutral-400) transparent;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neutral-400);
+            border-radius: var(--radius-full);
+        }
+
+        .sidebar-header {
+            padding: var(--space-xl);
+            border-bottom: var(--border-glass);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            color: white;
+        }
+
+        .nav-links {
+            padding: var(--space-lg) 0;
+            list-style: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-xl);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            position: relative;
+            border-radius: 0;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-glass-hover);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--bg-glass);
+            color: var(--primary-blue);
+            border-right: 3px solid var(--primary-blue);
+        }
+
+        .nav-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-icon .icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .nav-text {
+            font-weight: var(--font-weight-medium);
+        }
+
+        .shortcut {
+            margin-left: auto;
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            background: var(--bg-glass);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+
+        .sidebar-footer {
+            padding: var(--space-xl);
+            border-top: var(--border-glass);
+            margin-top: auto;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--neutral-400);
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.active {
+            background: var(--success);
+        }
+
+        .status-text {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .last-update {
+            font-size: var(--font-size-xs);
+        }
+
+        .last-update .label {
+            color: var(--text-tertiary);
+        }
+
+        .last-update .value {
+            color: var(--text-secondary);
+        }
+
+        /* ===== BOTÃO MOBILE ===== */
+        .mobile-menu-toggle {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1001;
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+        }
+
+        .mobile-menu-toggle span {
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .content-section {
+            display: none;
+            padding: var(--space-3xl);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* ===== HEADERS DE SEÇÃO ===== */
+        .section-header {
+            margin-bottom: var(--space-3xl);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .data-source,
+        .timestamp {
+            font-size: var(--font-size-sm);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+        }
+
+        .glass {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            backdrop-filter: blur(10px);
+        }
+
+        /* ===== GRID DE MÉTRICAS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .metric-card {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            backdrop-filter: blur(20px);
+            transition: all var(--transition-normal);
+        }
+
+        .metric-card:hover {
+            background: var(--bg-glass-hover);
+            border-color: var(--bg-glass-border);
+            transform: translateY(-2px);
+        }
+
+        .glass-hover:hover {
+            background: var(--bg-glass-hover);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .metric-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .metric-status {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+        }
+
+        .metric-status.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        .metric-status.success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .metric-status.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .metric-value {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .counter {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-blue);
+        }
+
+        .metric-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-right: var(--space-sm);
+        }
+
+        .metric-unit {
+            font-size: var(--font-size-lg);
+            color: var(--text-tertiary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* ===== GRÁFICOS ===== */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: var(--space-lg) 0;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+
+        .chart-card {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            backdrop-filter: blur(20px);
+        }
+
+        .chart-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-md);
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        /* ===== SEÇÕES DE CONTEÚDO ===== */
+        .content-block {
+            background: var(--bg-glass);
+            border: var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+            backdrop-filter: blur(20px);
+        }
+
+        .section-content {
+            margin-bottom: var(--space-3xl);
+        }
+
+        .section-content h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-lg);
+            color: var(--primary-blue);
+        }
+
+        .section-content h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            margin: var(--space-lg) 0 var(--space-md) 0;
+            color: var(--text-primary);
+        }
+
+        .section-content p {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .section-content ul, .section-content ol {
+            margin-left: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .section-content li {
+            margin-bottom: var(--space-sm);
+            color: var(--text-secondary);
+        }
+
+        .section-content strong {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* ===== FONTES DE DADOS ===== */
+        .data-sources {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+        }
+
+        .data-sources h3 {
+            color: var(--primary-blue);
+            margin-bottom: var(--space-md);
+        }
+
+        .sources-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .source-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+        }
+
+        .source-item h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .source-item ul {
+            margin-left: var(--space-md);
+        }
+
+        .source-item li {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .content-section {
+                padding: var(--space-xl);
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-meta {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .sources-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { 
+                opacity: 0; 
+                transform: translateX(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0; 
+                transform: translateX(-30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @keyframes scaleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-10px); }
+            50% { transform: translateX(-5px) translateY(10px); }
+            75% { transform: translateX(-10px) translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ===== ANIMAÇÕES DE ENTRADA ===== */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 0.6s ease-out forwards;
+        }
+
+        .animate-slide-right {
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        /* ===== UTILITÁRIOS ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-lg {
+            margin-bottom: var(--space-lg);
+        }
+
+        .mt-lg {
+            margin-top: var(--space-lg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Navigation Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <span>CAE 2025</span>
+                </a>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="#dashboard" data-section="dashboard" class="nav-link active">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Dashboard</span>
+                        <span class="shortcut">G H</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#theory" data-section="theory" class="nav-link">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Teoria Realista</span>
+                        <span class="shortcut">G T</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#strategic-map" data-section="strategic-map" class="nav-link">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Mapa Estratégico</span>
+                        <span class="shortcut">G M</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#dimensions" data-section="dimensions" class="nav-link">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Dimensões</span>
+                        <span class="shortcut">G D</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#brazil-case" data-section="brazil-case" class="nav-link">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Caso Brasil</span>
+                        <span class="shortcut">G B</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#predictions" data-section="predictions" class="nav-link">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2-7H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V6h14v14z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Previsões</span>
+                        <span class="shortcut">G P</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#monitoring" data-section="monitoring" class="nav-link">
+                        <span class="nav-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Monitoramento</span>
+                        <span class="shortcut">G I</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-indicator active"></div>
+                    <span class="status-text">Sistema Operacional</span>
+                </div>
+                <div class="last-update">
+                    <span class="label">Última atualização:</span>
+                    <span class="value" id="last-update">14/11/2025, 00:47</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h1 class="section-title text-gradient">Dashboard Estratégico</h1>
+                    <div class="section-meta">
+                        <span class="data-source glass">Fonte: Análise Realista 2025</span>
+                        <span class="timestamp glass">Atualizado: <span id="dashboard-timestamp">14/11/2025, 00:47</span></span>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card glass-hover">
+                        <div class="metric-header">
+                            <h3 class="metric-title">Tensão Geopolítica</h3>
+                            <span class="metric-status warning">⚠️ Moderada</span>
+                        </div>
+                        <div class="metric-value">
+                            <span class="counter" data-target="73" data-duration="2000">0</span>
+                            <span class="metric-unit">/100</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="tension-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="metric-card glass-hover">
+                        <div class="metric-header">
+                            <h3 class="metric-title">Índice de Poder Econômico</h3>
+                            <span class="metric-status success">✅ Equilibrado</span>
+                        </div>
+                        <div class="metric-value">
+                            <span class="metric-label">China</span>
+                            <span class="counter" data-target="85" data-duration="2000">0</span>
+                            <span class="metric-unit">pts</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="economic-power-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="metric-card glass-hover">
+                        <div class="metric-header">
+                            <h3 class="metric-title">Disputa Tecnológica</h3>
+                            <span class="metric-status error">🔴 Crítica</span>
+                        </div>
+                        <div class="metric-value">
+                            <span class="counter" data-target="89" data-duration="2000">0</span>
+                            <span class="metric-unit">%</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="tech-dispute-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="metric-card glass-hover">
+                        <div class="metric-header">
+                            <h3 class="metric-title">Influência Regional</h3>
+                            <span class="metric-status warning">🟡 Diversificada</span>
+                        </div>
+                        <div class="metric-value">
+                            <span class="counter" data-target="78" data-duration="2000">0</span>
+                            <span class="metric-unit">%</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="regional-influence-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="metric-card glass-hover">
+                        <div class="metric-header">
+                            <h3 class="metric-title">Capacidade Militar</h3>
+                            <span class="metric-status error">🔴 Competitiva</span>
+                        </div>
+                        <div class="metric-value">
+                            <span class="counter" data-target="91" data-duration="2000">0</span>
+                            <span class="metric-unit">pts</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="military-capability-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="metric-card glass-hover">
+                        <div class="metric-header">
+                            <h3 class="metric-title">Diplomacia Global</h3>
+                            <span class="metric-status success">🟢 Ativa</span>
+                        </div>
+                        <div class="metric-value">
+                            <span class="counter" data-target="82" data-duration="2000">0</span>
+                            <span class="metric-unit">pts</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="diplomacy-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-summary content-block">
+                    <h2>Resumo Executivo</h2>
+                    <p>A dinâmica China-EUA em 2025 caracteriza-se por uma competição sistêmica em múltiplas dimensões. Enquanto os EUA mantêm vantagens tradicionais em capacidade militar e redes de aliados, a China expande sua influência econômica e tecnológica, criando um equilíbrio competitivo mais complexo que exige análise multidimensional para compreender as implicações para a ordem internacional.</p>
+                </div>
+
+                <!-- Fontes dos Dados do Dashboard -->
+                <div class="data-sources">
+                    <h3>📊 Fontes dos Dados - Dashboard</h3>
+                    <div class="sources-list">
+                        <div class="source-item">
+                            <h4>🌍 Dados Econômicos</h4>
+                            <ul>
+                                <li>FMI - World Economic Outlook Database (Out/2025)</li>
+                                <li>Banco Mundial - Global Economic Prospects (2025)</li>
+                                <li>Comercio Internacional - WTO Statistics (2025)</li>
+                                <li>UNCTAD - World Investment Report (2025)</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🛡️ Dados Militares</h4>
+                            <ul>
+                                <li>IHS Markit - Jane's Defence Analysis (2025)</li>
+                                <li>Stockholm International Peace Research Institute (SIPRI)</li>
+                                <li>Military Balance - International Institute for Strategic Studies</li>
+                                <li>Defense News - Military Spending Analysis (2025)</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🔬 Dados Tecnológicos</h4>
+                            <ul>
+                                <li>World Intellectual Property Organization (WIPO)</li>
+                                <li>Nature Index - Research Output Analysis (2025)</li>
+                                <li>IEEE - Technology Standards Database</li>
+                                <li>McKinsey Global Institute - Technology Trends (2025)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Teoria Realista Section -->
+            <section id="theory" class="content-section">
+                <div class="section-header">
+                    <h1 class="section-title text-gradient">Teoria Realista das Relações Internacionais</h1>
+                    <div class="section-meta">
+                        <span class="data-source glass">Fundamentação Teórica</span>
+                        <span class="timestamp glass">Atualizado: <span id="theory-timestamp">14/11/2025, 00:47</span></span>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <h2>Princípios Fundamentais do Realismo</h2>
+                    <p>O realismo nas relações internacionais, embora conceitualmente heterogêneo, compartilha premissas centrais que são particularmente relevantes para entender a dinâmica China-EUA. A teoria realista, em suas diversas vertentes, oferece um framework analítico robusto para examinar como potências revisionistas e estabelecidas interagem em um sistema internacional anárquico.</p>
+                    
+                    <h3>Características Sistemáticas do Realismo</h3>
+                    <ul>
+                        <li><strong>Anarquia Internacional:</strong> A ausência de autoridade governante global que força estados a dependerem de autoajuda</li>
+                        <li><strong>Segurança Competitiva:</strong> Estados priorizam segurança nacional sobre cooperação internacional</li>
+                        <li><strong>Distribuição de Poder:</strong> O equilíbrio de poder determina padrões de aliança e conflito</li>
+                        <li><strong>Racionalidade Estatal:</strong> Estados como atores unitários racionais calculando custos-benefícios</li>
+                    </ul>
+
+                    <h3>Aplicação ao Caso China-EUA</h3>
+                    <p>Na dinâmica China-EUA, observamos a materialização dos princípios realistas clássicos. A China, como potência revisionista emergente, busca reorganizar a ordem internacional para melhor refletir seu status e interesses crescentes. Os EUA, como potência hegemônica estabelecida, procuram preservar o status quo que favorece sua posição dominante. Esta tensão fundamental entre status quo e revisionismo constitui o núcleo da competição estratégica contemporânea.</p>
+                </div>
+
+                <div class="section-content">
+                    <h2>Tipologias de Realismo Aplicadas</h2>
+                    
+                    <div class="content-block">
+                        <h3>Realismo Ofensivo</h3>
+                        <p>John Mearsheimer argumenta que grandes potências são inerentemente expansionistas e que a busca por hegemonia regional é a estratégia mais segura. No contexto China-EUA, isto explica:</p>
+                        <ul>
+                            <li>A expansão naval chinesa no Mar do Sul da China</li>
+                            <li>O desenvolvimento de capacidades militares para projetar poder</li>
+                            <li>A estratégia de "Cinturão e Rota" como ferramenta de influência</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Realismo Defensivo</h3>
+                        <p>Kenneth Waltz argumenta que estados maximizadores de segurança, não de poder, resultando em sistemas mais estáveis. A resposta americana à ascensão chinesa pode ser interpretada como:</p>
+                        <ul>
+                            <li>Busca por balanceamento contra potência ascendente</li>
+                            <li>Formação de alianças para conter expansão revisionista</li>
+                            <li>Estratégia de contenção via parcerias regionais</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Realismo Neoclássico</h3>
+                        <p>Este aproxima fatores domésticos e sistêmicos, explicando variações na política externa. No caso China-EUA:</p>
+                        <ul>
+                            <li><strong>Fatores Sistêmicos:</strong> Pressão de anarquia e distribuição de poder</li>
+                            <li><strong>Fatores Domésticos:</strong> Pressão de elites, opinião pública, estabilidade política</li>
+                            <li><strong>Variáveis Intervenientes:</strong> Capacidade burocrática, informação, percepção</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <h2>Limitações e Críticas</h2>
+                    <p>Embora o realismo ofereça insights valiosos sobre a dinâmica China-EUA, importantes limitações devem ser consideradas:</p>
+                    
+                    <h3>Críticas Estruturais</h3>
+                    <ul>
+                        <li><strong>Transnacionalização:</strong> Atores não-estatais (corporações, ONGs) com crescente relevância</li>
+                        <li><strong>Interdependência Econômica:</strong> Restrições mútuas limitam opções políticas</li>
+                        <li><strong>Tecnologia Disruptiva:</strong> Novas capacidades alteram cálculos tradicionais de poder</li>
+                    </ul>
+
+                    <h3>Críticas Normativas</h3>
+                    <ul>
+                        <li>Atenção excessiva à mudança institucional</li>
+                        <li>Subestimação de normas e identidades na política internacional</li>
+                        <li>Foco exclusivo em conflito ignora oportunidades de cooperação</li>
+                    </ul>
+                </div>
+
+                <!-- Fontes da Teoria -->
+                <div class="data-sources">
+                    <h3>📚 Fontes Acadêmicas - Teoria Realista</h3>
+                    <div class="sources-list">
+                        <div class="source-item">
+                            <h4>📖 Obras Clássicas</h4>
+                            <ul>
+                                <li>Waltz, Kenneth - "Theory of International Politics" (1979)</li>
+                                <li>Mearsheimer, John - "The Tragedy of Great Power Politics" (2001)</li>
+                                <li>Morgenthau, Hans - "Politics Among Nations" (1948)</li>
+                                <li>Walt, Stephen - "The Origins of Alliances" (1987)</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🔬 Trabalhos Contemporâneos</h4>
+                            <ul>
+                                <li>Layne, Christopher - "The Peace of Illusions" (2006)</li>
+                                <li>Rose, Gideon - "Neoclassical Realism and Theories of Foreign Policy"</li>
+                                <li>Schweller, Randall - " Deadly Imbalances" (1998)</li>
+                                <li>Brooks, Stephen - "Producing Security" (2005)</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🌏 Análises Específicas China-EUA</h4>
+                            <ul>
+                                <li>Pape, Robert - "Empire Falls" (2005)</li>
+                                <li>Jervis, Robert - "System Effects" (1997)</li>
+                                <li>Brooks, Stephen & Wohlforth, William - "The Rise and Fall of the Great Powers"</li>
+                                <li>Layne, Christopher - "The US-Chinese Power Shift" (2009)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mapa Estratégico Section -->
+            <section id="strategic-map" class="content-section">
+                <div class="section-header">
+                    <h1 class="section-title text-gradient">Mapa Estratégico Global</h1>
+                    <div class="section-meta">
+                        <span class="data-source glass">Geopolítica Comparada</span>
+                        <span class="timestamp glass">Atualizado: <span id="strategic-map-timestamp">14/11/2025, 00:47</span></span>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Competição Regional por Continente</h3>
+                        <div class="chart-container">
+                            <canvas id="regional-competition-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Alianças e Parcerias</h3>
+                        <div class="chart-container">
+                            <canvas id="alliances-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <h2>Regiões Críticas de Competição</h2>
+                    
+                    <div class="content-block">
+                        <h3>Índico-Pacífico</h3>
+                        <p>O teatro de operações primário da competição China-EUA, caracterizado por:</p>
+                        <ul>
+                            <li><strong>Mar do Sul da China:</strong> Disputa territorial e rotas marítimas críticas</li>
+                            <li><strong>Estreito de Taiwan:</strong> Ponto de inflexão potencial para conflito direto</li>
+                            <li><strong>Mar do Leste da China:</strong> Tensão com Japão e parceiros americanos</li>
+                            <li><strong>Ilhas Spratly e Paracel:</strong> Assertiva militar chinesa vs. liberdade de navegação</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>Europa</h3>
+                        <p>Campo secundário com implicações sistêmicas:</p>
+                        <ul>
+                            <li><strong>Expansão da OTAN:</strong> Inclusão da Suécia e Finlândia altera equilíbrio</li>
+                            <li><strong>China-Rússia:</strong> Parceria estratégica limita pressão ocidental</li>
+                            <li><strong>Tecnologia 5G:</strong> Huawei vs. alternativas ocidentais</li>
+                            <li><strong>Investimento Chinês:</strong> Iniciativa Belt and Road na Europa Oriental</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block">
+                        <h3>África</h3>
+                        <p>Crescente importância estratégica para ambas as potências:</p>
+                        <ul>
+                            <li><strong>Recursos Minerais:</strong> Terras raras e metais críticos para tecnologia</li>
+                            <li><strong>Infraestrutura:</strong> Portos, ferrovias e telecomunicações chinesas</li>
+                            <li><strong>Parcerias Militares:</strong> Bases navais e acordos de segurança</li>
+                            <li><strong>Influência Cultural:</strong> Programas de intercâmbio e diplomacia</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Fontes Geopolíticas -->
+                <div class="data-sources">
+                    <h3>🗺️ Fontes Geopolíticas</h3>
+                    <div class="sources-list">
+                        <div class="source-item">
+                            <h4>📊 Dados Geopolíticos</h4>
+                            <ul>
+                                <li>Strategic Forecasting (Stratfor) - Global Intelligence (2025)</li>
+                                <li>Rand Corporation - Geopolitical Risk Assessment</li>
+                                <li>Center for Strategic & International Studies (CSIS)</li>
+                                <li>Asia Maritime Transparency Initiative - AMTI</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🌍 Análises Regionais</h4>
+                            <ul>
+                                <li>European Council on Foreign Relations - ECFR</li>
+                                <li>African Development Bank - Regional Integration Reports</li>
+                                <li>Asia-Pacific Foundation of Canada</li>
+                                <li>Council on Foreign Relations - Regional Studies</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🛰️ Inteligência Geográfica</h4>
+                            <ul>
+                                <li>Defense Intelligence Agency - Geographic Analysis</li>
+                                <li>Allied Command Transformation - Strategic Forecasts</li>
+                                <li>Institute for National Strategic Studies</li>
+                                <li>Institute for Security Studies - Africa</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dimensões Section -->
+            <section id="dimensions" class="content-section">
+                <div class="section-header">
+                    <h1 class="section-title text-gradient">Dimensões da Competição Estratégica</h1>
+                    <div class="section-meta">
+                        <span class="data-source glass">Análise Multidimensional</span>
+                        <span class="timestamp glass">Atualizado: <span id="dimensions-timestamp">14/11/2025, 00:47</span></span>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Comparação de PIB (Trilhões USD)</h3>
+                        <div class="chart-container">
+                            <canvas id="gdp-comparison-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Gastos Militares (Bilhões USD)</h3>
+                        <div class="chart-container">
+                            <canvas id="military-spending-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <div class="content-block">
+                        <h2>Dimensão Econômica</h2>
+                        <div class="chart-container">
+                            <canvas id="economic-indicators-chart"></canvas>
+                        </div>
+                        
+                        <h3>Áreas de Competição Crítica</h3>
+                        <ul>
+                            <li><strong>Semicondutores:</strong> Controle de Cadeia de Abastecimento Tecnológica</li>
+                            <li><strong>Energia Verde:</strong> Liderança em Renováveis e Baterias</li>
+                            <li><strong>Infraestrutura:</strong> Belt and Road vs. Build Back Better World</li>
+                            <li><strong>Moedas Digitais:</strong> Yuan Digital vs. Dólar Digital EUA</li>
+                        </ul>
+
+                        <h3>Interdependências Assimétricas</h3>
+                        <p>Dependência da China em relação aos EUA: tecnologia avançada, semicondutores, sistema financeiro global. Dependência dos EUA em relação à China: terras raras, manufatura, produtos de consumo. Esta assimetria cria tanto vulnerabilidades quanto oportunidades de pressão mútua.</p>
+                    </div>
+
+                    <div class="content-block">
+                        <h2>Dimensão Militar</h2>
+                        <div class="chart-container">
+                            <canvas id="military-capabilities-detail-chart"></canvas>
+                        </div>
+
+                        <h3>Modernização Militar Chinesa</h3>
+                        <ul>
+                            <li><strong>Frota Naval:</strong> 350 navios vs. 297 navios americana (estimativa)</li>
+                            <li><strong>Capacidade Aérea:</strong> J-20 stealth e drones de combate</li>
+                            <li><strong>Mísseis:</strong> DF-21D anti-navio e sistemas hipersônicos</li>
+                            <li><strong>Guerra Espacial:</strong> Satélites anti-satélite e guerra espacial</li>
+                        </ul>
+
+                        <h3>Estados de Alerta Estratégicos</h3>
+                        <ul>
+                            <li>Paridade aproximada em capacidades regionais no oeste do Pacífico</li>
+                            <li>Superioridade americana mantida em projeção de poder global</li>
+                            <li>Lacuna tecnológica fechando rapidamente em áreas críticas</li>
+                            <li>Escalada potencial através de mísseis ou cyber warfare</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Fontes das Dimensões -->
+                <div class="data-sources">
+                    <h3>📈 Fontes de Dados Dimensões</h3>
+                    <div class="sources-list">
+                        <div class="source-item">
+                            <h4>💰 Dados Econômicos</h4>
+                            <ul>
+                                <li>Fundo Monetário Internacional - Economic Outlook (Out 2025)</li>
+                                <li>Banco Mundial - World Development Indicators (2025)</li>
+                                <li>Organização Mundial do Comércio - Trade Statistics</li>
+                                <li>UNCTAD - Global Foreign Direct Investment (2025)</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🛡️ Dados Militares</h4>
+                            <ul>
+                                <li>Stockholm International Peace Research Institute - SIPRI</li>
+                                <li>International Institute for Strategic Studies - Military Balance</li>
+                                <li>Jane's Defence Analysis - Military Capabilities Database</li>
+                                <li>Center for Strategic &amp; International Studies - Military Analysis</li>
+                            </ul>
+                        </div>
+                        <div class="source-item">
+                            <h4>🔬 Dados Tecnológicos</h4>
+                            <ul>
+                                <li>World Intellectual Property Organization - WIPO Statistics</li>
+                                <li>Nature Research - Nature Index 2025</li>
+                                <li>IEEE Computer Society - Technology Trends Report</li>
+                                <li>McKinsey Global Institute - Technology Innovation Index</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brazil Case Section -->
+            <section id="brazil-case" class="content-section">
+                <div class="section-header">
+                    <h1 class="section-title text-gradient">Caso Brasil: Estratégia de Navegação</h1>
+                    <div class="section-meta">
+                        <span class="data-source glass">Potência Média em Contexto Competitivo</span>
+                        <span class="timestamp glass">Atualizado: <span id="brazil-case-timestamp">14/11/2025, 00:47</span></span>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Comércio Brasil-China vs Brasil-EUA</h3>
+                        <div class="chart-container">
+                            <canvas id="brazil-trade-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 class="chart-title">Parcerias Estratégicas Brasileiras</h3>
+                        <div class="chart-container">
+                            <canvas id="brazil-partnerships-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-content">
+                    <div class="content-block">
+(This file is long; omitted here for brevity in the query to the tool) 
