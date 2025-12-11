@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hub de Ferramentas de Análise de Política Externa desenvolvidas por alunos de Relações Internacionais da UFSM">
+    <meta name="keywords" content="política externa, relações internacionais, UFSM, análise, ferramentas">
+    <title>Hub APE UFSM 2025 | Ferramentas de Análise de Política Externa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2c5282;
+            --accent: #ed8936;
+            --success: #38a169;
+            --bg-light: #f7fafc;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(26, 54, 93, 0.95);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-content .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-content .institution {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #718096;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            font-weight: 600;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .app-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .app-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .app-authors {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .app-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .app-description {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .app-theory {
+            background: #edf2f7;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .app-theory strong {
+            color: var(--primary);
+        }
+
+        .app-data {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        .app-footer {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-external::after {
+            content: " ↗";
+        }
+
+        .about-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1rem;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .link-card {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .link-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .link-card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: rgba(26, 54, 93, 0.95);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .platform-tag {
+            display: inline-block;
+            background: #e6fffa;
+            color: #234e52;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🌍 Hub de Análise de Política Externa</h1>
+            <p class="subtitle">Ferramentas Interativas Desenvolvidas com IA</p>
+            <p class="institution">UFSM - Curso de Relações Internacionais | 2025/2</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Estatísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Ferramentas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Estudantes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Teorias de RI</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">217+</div>
+                <div class="stat-label">Países Analisados</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">📱 Ferramentas Disponíveis</h2>
+
+        <div class="apps-grid">
+            <!-- App 1: Análise de Sanções (PythonAnywhere) -->
+            <div class="app-card">
+                <div class="app-header">
+                    <span class="app-badge">Institucionalismo Liberal</span>
+                    <h3 class="app-title">Análise de Sanções na Política Externa</h3>
+                    <p class="app-authors">Brenda, Eduarda, Guilherme, Leila, Ana Luiza, Maria Isabel</p>
+                </div>
+                <div class="app-body">
+                    <p class="app-description">
+                        Framework que classifica teoricamente a eficácia de sanções internacionais considerando assimetria econômica, dependência comercial e análise de discurso por contagem semântica.
+                    </p>
+                    <div class="app-theory">
+                        <strong>Base teórica:</strong> Keohane, Nye, análise de interdependência complexa
+                    </div>
+                    <p class="app-data">
+                        <strong>Dados:</strong> PIB, comércio bilateral, reservas (1977-2023) | FMI, Banco Mundial
+                    </p>
+                    <span class="platform-tag">🐍 PythonAnywhere</span>
+                </div>
+                <div class="app-footer">
+                    <a href="https://guilhermelbrandaoufsm.pythonanywhere.com/" class="btn btn-primary btn-external" target="_blank" rel="noopener">
+                        🚀 Acessar App
+                    </a>
+                    <a href="apps/01-analise-sancoes/" class="btn btn-secondary">
+                        📄 Documentação
+                    </a>
+                </div>
+            </div>
+
+            <!-- App 2: Calculadora de Ameaça (CodePen) -->
+            <div class="app-card">
+                <div class="app-header">
+                    <span class="app-badge">Realismo Estrutural</span>
+                    <h3 class="app-title">Calculadora de Índice de Ameaça</h3>
+                    <p class="app-authors">Arthur e equipe</p>
+                </div>
+                <div class="app-body">
+                    <p class="app-description">
+                        Quantifica ameaças interestatais através de variáveis objetivas: poder material (CINC 40%), proximidade territorial (25%), alianças defensivas (25%) e estrutura sistêmica (10%).
+                    </p>
+                    <div class="app-theory">
+                        <strong>Base teórica:</strong> Waltz (1979), Walt (1987) - Balance of Threat
+                    </div>
+                    <p class="app-data">
+                        <strong>Dados:</strong> COW NMC v6.0, Direct Contiguity v3.2, Formal Alliances v4.1
+                    </p>
+                    <span class="platform-tag">🖊️ CodePen</span>
+                </div>
+                <div class="app-footer">
+                    <a href="https://codepen.io/arthurxds13/full/bNpmOKL" class="btn btn-primary btn-external" target="_blank" rel="noopener">
+                        🚀 Acessar App
+                    </a>
+                    <a href="apps/02-calculadora-ameaca/" class="btn btn-secondary">
+                        💾 Versão Local
+                    </a>
+                </div>
+            </div>
+
+            <!-- App 3: Poder Nacional (Gemini) -->
+            <div class="app-card">
+                <div class="app-header">
+                    <span class="app-badge">Realismo Clássico</span>
+                    <h3 class="app-title">Calculadora de Poder Nacional</h3>
+                    <p class="app-authors">Augusto, Manuela, Rafaela M., Rafaela F., Vitor</p>
+                </div>
+                <div class="app-body">
+                    <p class="app-description">
+                        Operacionaliza os elementos de poder nacional de Hans Morgenthau (Capítulo IX) em indicadores mensuráveis: geografia, recursos, capacidade industrial, tecnologia, preparo militar.
+                    </p>
+                    <div class="app-theory">
+                        <strong>Base teórica:</strong> Morgenthau (1948) - Politics Among Nations
+                    </div>
+                    <p class="app-data">
+                        <strong>Dados:</strong> Múltiplas bases integradas (geografia, recursos, PIB industrial, P&D militar)
+                    </p>
+                    <span class="platform-tag">🤖 Gemini Canvas</span>
+                </div>
+                <div class="app-footer">
+                    <a href="https://gemini.google.com/share/d18d2dd71249" class="btn btn-primary btn-external" target="_blank" rel="noopener">
+                        🚀 Ver no Gemini
+                    </a>
+                    <a href="apps/03-poder-nacional/" class="btn btn-secondary">
+                        💾 Versão Local
+                    </a>
+                </div>
+            </div>
+
+            <!-- App 4: Índice de Alinhamento (Perplexity Labs) -->
+            <div class="app-card">
+                <div class="app-header">
+                    <span class="app-badge">Neorrealismo</span>
+                ...
+</html>
